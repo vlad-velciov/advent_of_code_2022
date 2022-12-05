@@ -42,6 +42,17 @@ module Day5
       @stack.shift
     end
 
+    def unshift_multiple(crates)
+      @stack = crates + @stack
+    end
+
+    def shift_multiple(number_of_crates)
+      temp = @stack[0..number_of_crates-1]
+      @stack = @stack[number_of_crates..-1] || []
+
+      temp
+    end
+
     def head
       @stack[0]
     end

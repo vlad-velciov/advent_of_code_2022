@@ -20,6 +20,13 @@ module Day5
       stacks
     end
 
+    def move_multiple(stacks)
+      temp = stacks[@from_stack].shift_multiple(@number_of_crates)
+      stacks[@to_stack].unshift_multiple(temp)
+
+      stacks
+    end
+
     def to_s
       "#{@number_of_crates}-#{@from_stack}-#{@to_stack}"
     end
