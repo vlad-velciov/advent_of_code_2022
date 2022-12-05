@@ -18,9 +18,6 @@ module Day5
       end
 
       stacks
-
-    rescue NoMethodError => e
-      puts e
     end
 
     def to_s
