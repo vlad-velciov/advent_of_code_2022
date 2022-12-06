@@ -11,6 +11,6 @@ describe Day6::TuningTable do
   end
 
   it 'runs the input' do
-    expect(Day6::TuningTable.new.find).to eq(1)
+    expect(Day6::TuningTable.new.find).to eq(1623)
   end
 end
