@@ -21,10 +21,9 @@ module Day7
         cd_command = CdCommand.new(cli_line)
         add_to_stack cd_command.target
       elsif cli_line.cd_exit_directory?
-        cd_command = CdCommand.new(cli_line)
         directory = pop_stack
-        add_size_to_stack_head directory[:size]
-        add_to_solution_array directory if valid_for_deletion?(**directory)
+        add_size_to_stack_head directory.size
+        add_to_solution_array directory if directory.small_enough_for_deletion?
       elsif cli_line.ls?
         # do nothing
       elsif cli_line.file_line?
@@ -40,15 +39,16 @@ module Day7
     end
 
     def add_to_stack(folder_name)
-      parsing_stack << {name: folder_name, size: 0}
+      directory = Directory.new(name: folder_name)
+      parsing_stack << directory
     end
 
     def add_size_to_stack_head(size)
-      parsing_stack.last[:size] += size.to_i
+      parsing_stack.last.add_size(size)
     end
 
-    def valid_for_deletion?(name: , size:)
-      size <= 100_000
+    def valid_for_deletion?(directory)
+      directory.small_enough_for_deletion?
     end
 
     def add_to_solution_array(directory)
@@ -58,7 +58,7 @@ module Day7
     def solutions_sum
       sum = 0
       solution_array.each do |directory|
-        sum += directory[:size]
+        sum += directory.size
       end
 
       sum
