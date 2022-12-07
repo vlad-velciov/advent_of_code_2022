@@ -6,13 +6,32 @@ module Day7
       @solution_array = []
     end
 
-    def call
+    def call(limit: 100_000)
+      @limit = limit
+
       read_file do |line|
         cli_line = CliLine.new(line)
         compute_line cli_line
       end
 
       solutions_sum
+    end
+
+    def size_to_be_deleted_for_update
+      call(limit: -1)
+      used_space = 0
+
+      while current_dir = @parsing_stack.pop do
+        used_space += current_dir.size
+      end
+
+      unused_space = 70_000_000 - used_space
+      needed_space = 30_000_000 - unused_space
+
+      @solution_array
+        .reject { |directory| directory.size < needed_space }
+        .min_by { |directory| directory.size }
+        .size
     end
 
     private
@@ -39,7 +58,7 @@ module Day7
     end
 
     def add_to_stack(folder_name)
-      directory = Directory.new(name: folder_name)
+      directory = Directory.new(name: folder_name, limit: )
       parsing_stack << directory
     end
 
@@ -64,7 +83,7 @@ module Day7
       sum
     end
 
-    attr_accessor :parsing_stack, :solution_array, :file_path
+    attr_accessor :parsing_stack, :solution_array, :file_path, :limit
     def read_file
       file = File.open(file_path)
       file.readlines.each do |line|

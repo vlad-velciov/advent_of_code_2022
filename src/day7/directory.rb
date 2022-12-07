@@ -1,10 +1,11 @@
 module Day7
   class Directory
 
-    attr_reader :name, :size
-    def initialize(name: , size: 0)
+    attr_reader :name, :size, :limit
+    def initialize(name: , limit: , size: 0)
       @name = name
       @size = size.to_i
+      @limit = limit
     end
 
     def add_size(new_size)
@@ -12,7 +13,8 @@ module Day7
     end
 
     def small_enough_for_deletion?
-      size <= 100_000
+      return true if limit < 0
+      size <= limit
     end
   end
 end

@@ -11,3 +11,4 @@ $ cd ..
 $ cd mbc
 $ ls
 120000 rrqzqwl.frp
+$ cd ..
