@@ -1,0 +1,13 @@
+$ cd /
+$ ls
+dir bfbjzfd
+dir mbc
+59022 rrqzqwl.frp
+$ cd bfbjzfd
+$ ls
+32 dff.frp
+32 vcb.frpc
+$ cd ..
+$ cd mbc
+$ ls
+120000 rrqzqwl.frp
