@@ -67,32 +67,10 @@ module Day8
       end
       @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
 
-      # if popped_line
-      #   @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
-      # elsif @candidates_line[current_line][-1]&.height != tree_height
-      #   @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
-      # end
-
-      # if (@candidates_line[current_line][-1]&.height || 99) < tree_height
-      #   @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
-      # end
-
       while !@candidates_column.empty? && (@candidates_column[current_column][-1]&.height || 99) <= tree_height
         @candidates_column[current_column].pop
       end
       @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
-
-      #
-      # if popped_column
-      #   @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
-      # elsif @candidates_column[current_column][-1]&.height != tree_height
-      #   @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
-      # end
-
-      # if (@candidates_column[current_column][-1]&.height || 99) > tree_height
-      #   @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
-      # end
-
     end
 
     attr_reader :file_path
