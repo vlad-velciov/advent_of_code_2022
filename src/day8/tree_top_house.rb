@@ -1,28 +1,6 @@
 require 'ostruct'
 
 module Day8
-
-  class Tree
-    attr_reader :line, :column, :height
-
-    def initialize(line, column, height)
-      @line = line
-      @column = column
-      @height = height
-    end
-
-    def eql?(other)
-      self.line == other.line && self.column == other.column
-    end
-
-    def hash
-      [self.line, self.column].hash
-    end
-
-    def to_s
-      "#{@line}-#{@column}-#{@height}"
-    end
-  end
   class TreeTopHouse
     def initialize(file_path: "#{__dir__}/input.txt")
       @file_path = file_path
@@ -57,7 +35,7 @@ module Day8
 
       t = cl+ln
       t.uniq!
-      @visible_trees.count + t.uniq.count
+      (@visible_trees + t).uniq.count
     end
 
     private
@@ -82,7 +60,6 @@ module Day8
 
       if visible_backwards
         @visible_trees << Tree.new(current_line, current_column, tree_height)
-        return
       end
 
       while !@candidates_line[current_line].empty? && (@candidates_line[current_line][-1]&.height || 99) <= tree_height
@@ -90,10 +67,32 @@ module Day8
       end
       @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
 
+      # if popped_line
+      #   @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
+      # elsif @candidates_line[current_line][-1]&.height != tree_height
+      #   @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
+      # end
+
+      # if (@candidates_line[current_line][-1]&.height || 99) < tree_height
+      #   @candidates_line[current_line] << Tree.new(current_line, current_column, tree_height)
+      # end
+
       while !@candidates_column.empty? && (@candidates_column[current_column][-1]&.height || 99) <= tree_height
         @candidates_column[current_column].pop
       end
       @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
+
+      #
+      # if popped_column
+      #   @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
+      # elsif @candidates_column[current_column][-1]&.height != tree_height
+      #   @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
+      # end
+
+      # if (@candidates_column[current_column][-1]&.height || 99) > tree_height
+      #   @candidates_column[current_column] << Tree.new(current_line, current_column, tree_height)
+      # end
+
     end
 
     attr_reader :file_path
