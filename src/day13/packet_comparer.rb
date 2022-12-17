@@ -17,9 +17,20 @@ module Day13
         if left[left_index] == '['
           if right[right_index] == '['
             list_comparison, jump_left, jump_right = compare(left[left_index+1..-1], right[right_index+1..-1])
+          elsif right[right_index] == ']'
+            return false, left_index, right_index
           else
             list_comparison, jump_left, jump_right = compare(left[left_index+1..-1], right[right_index..right_index])
           end
+
+          left_index  += jump_left+1
+          right_index += jump_right+1
+
+          return false, left_index, right_index unless list_comparison
+        end
+
+        if right[right_index] == '['
+          list_comparison, jump_left, jump_right = compare(left[left_index..left_index], right[right_index+1..-1])
 
           left_index += jump_left+1
           right_index += jump_right+1
@@ -30,13 +41,9 @@ module Day13
         return true, left_index, right_index if left[left_index] == ']'
         return false, left_index, right_index if right[right_index] == ']'
 
-        if left[left_index] == ',' && right[right_index] == ','
-          right_index +=1
-          next
-        end
-
         return false, left_index, right_index if right[right_index].nil?
-        return false, left_index, right_index if left[left_index] > right[right_index]
+        return true, left_index, right_index if left[left_index].nil?
+        return false, left_index, right_index if left[left_index].to_i > right[right_index].to_i
 
         right_index += 1
       end

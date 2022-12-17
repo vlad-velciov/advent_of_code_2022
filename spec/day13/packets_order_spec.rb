@@ -4,11 +4,17 @@ describe Day13::PacketsOrder do
 
   describe 'part1' do
     it 'runs the example' do
-      expect(Day13::PacketsOrder.new(file_path: "#{__dir__}/example1.txt").call).to eq(13)
+      packets_order = Day13::PacketsOrder.new(file_path: "#{__dir__}/example1.txt")
+      indexes = packets_order.correct_pair_indexes
+
+      expect(indexes.sum).to eq(13)
     end
 
-    it 'works for simple integers' do
+    it 'runs the first part' do
+      packets_order = Day13::PacketsOrder.new
+      indexes = packets_order.correct_pair_indexes
 
+      expect(indexes.sum).to eq(2547)
     end
   end
 end
