@@ -1,3 +1,5 @@
+require 'json'
+
 module Day13
   class PacketsOrder
     def initialize(file_path: "#{__dir__}/input.txt")
@@ -31,6 +33,7 @@ module Day13
 
     # [10,9]
     def read_packet(line)
+      return JSON.parse(line)
       as_array = line.chars
       new_array = []
       as_array.each do |char|

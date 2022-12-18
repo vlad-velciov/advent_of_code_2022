@@ -14,7 +14,7 @@ describe Day13::PacketsOrder do
       packets_order = Day13::PacketsOrder.new
       indexes = packets_order.correct_pair_indexes
 
-      expect(indexes.sum).to eq(2547)
+      expect(indexes.sum).to eq(5185) # too high ?
     end
   end
 end
